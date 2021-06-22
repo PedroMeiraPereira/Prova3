@@ -67,12 +67,13 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/musicname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
         android:fontFamily="@font/montserratbold"
+        android:gravity="center"
         android:textColor="@color/blackfive"
         android:textSize="24sp" />
 
@@ -83,6 +84,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:fontFamily="@font/montserratregular"
+        android:gravity="center"
         android:textColor="@color/red_pink"
         android:textSize="18sp" />
 

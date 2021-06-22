@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import br.com.cotemig.pedro.R
 import br.com.cotemig.pedro.models.ListPlaylist
 import br.com.cotemig.pedro.services.RetrofitInitializer
+import br.com.cotemig.pedro.ui.adapters.PlaylistAdapter
 import retrofit2.Call
 import retrofit2.Response
 
@@ -31,10 +34,13 @@ class PlaylistFragment : Fragment() {
         var call = s.getPlaylist()
 
         call.enqueue(object : retrofit2.Callback<List<ListPlaylist>> {
-            override fun onResponse(call: Call<List<ListPlaylist>>, response: Response<List<ListPlaylist>>) {
+            override fun onResponse(
+                call: Call<List<ListPlaylist>>,
+                response: Response<List<ListPlaylist>>
+            ) {
                 if (response.code() == 200) {
                     response.body()?.let {
-                        Toast.makeText(context, "Show de bola", Toast.LENGTH_LONG).show()
+                        showPlaylist(view, it)
                     }
                 }
             }
@@ -43,6 +49,12 @@ class PlaylistFragment : Fragment() {
                 Toast.makeText(context, "Ops", Toast.LENGTH_LONG).show()
             }
         })
+    }
+
+    fun showPlaylist(view: View, list: List<ListPlaylist>) {
+        var recyclerViewPlaylist = view.findViewById<RecyclerView>(R.id.recyclerViewPlaylist)
+        recyclerViewPlaylist.adapter = PlaylistAdapter(context!!, list)
+        recyclerViewPlaylist.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
     }
 
     companion object {
